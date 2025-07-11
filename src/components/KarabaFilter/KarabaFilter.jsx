@@ -46,7 +46,7 @@ const KarabaFilter = ({ onFilterChange }) => {
       }
     });
 
-    const response = await fetch(`http://localhost:4000/cars?${queryParams.toString()}`);
+    const response = await fetch(`https://koreacar-backend.onrender.com/cars?${queryParams.toString()}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

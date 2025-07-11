@@ -45,7 +45,7 @@ const CarList = ({ filter }) => {
 
       console.log('Fetching cars with params:', params.toString());
       try {
-        const res = await fetch(`http://localhost:4000/cars?${params.toString()}`);
+        const res = await fetch(`https://koreacar-backend.onrender.com/cars?${params.toString()}`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setCars(data);

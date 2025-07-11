@@ -11,7 +11,7 @@ const CarItem = ({ car }) => {
   if (car.seq && typeof car.seq === 'string' && car.seq.length >= 5) {
     const first5 = car.seq.slice(0, 5);
     const originalUrl = `https://photo5.autosale.co.kr/car_large/NC${first5}/NC${car.seq}_1.jpg`;
-    imageUrl = `http://localhost:4000/image-proxy?url=${encodeURIComponent(originalUrl)}`;
+    imageUrl = `https://koreacar-backend.onrender.com/image-proxy?url=${encodeURIComponent(originalUrl)}`;
   }
 
   const onError = (event) => {

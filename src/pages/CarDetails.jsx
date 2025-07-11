@@ -40,7 +40,7 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/cars/${id}`);
+        const res = await fetch(`https://koreacar-backend.onrender.com/cars/${id}`);
         const result = await res.json();
         if (result) {
           const images = result.image_urls
