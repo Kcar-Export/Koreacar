@@ -3,7 +3,8 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+
 
 // MySQL connection pool
 const pool = mysql.createPool({
@@ -12,6 +13,11 @@ const pool = mysql.createPool({
   password: 'kcarexport',
   database: 'car_listings',
 });
+
+app.use(cors({
+  origin: 'https://koreacar.onrender.com', // allow only your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 // Get all cars
 app.get('/cars', async (req, res) => {
@@ -219,7 +225,7 @@ app.get('/image-proxy', async (req, res) => {
 });
 
 // Start the server
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`✅ Backend API running at http://localhost:${PORT}`);
 });
