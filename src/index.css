@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Debug helper */
+.debug {
+  outline: 1px solid red;
+}
+
+/* Tab styles */
+.find_active {
+  @apply bg-blue-600 text-white;
+}
+
+.find_not_active {
+  @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+}
+
+/* ===== FILTER SYSTEM ===== */
+/* Container styles */
+.filter-system {
+  width: 100%;
+  max-width: 100vw;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+
+/* Manufacturer grid - WIDE layout */
+.manufacturer-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(180px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Filter grid - WIDE layout */
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+/* Compact list styles */
+.compact-list {
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  background: white;
+}
+
+.compact-list p {
+  @apply text-sm font-medium px-2 py-1 text-gray-700;
+}
+
+.compact-list li {
+  @apply px-2 py-1 text-xs cursor-pointer hover:bg-blue-50;
+  white-space: nowrap;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.compact-list li:last-child {
+  border-bottom: none;
+}
+
+/* Ultra-compact form controls */
+.compact-input {
+  @apply h-7 px-2 text-xs border rounded;
+}
+
+.compact-select {
+  @apply h-7 pl-2 pr-6 text-xs border rounded;
+}
+
+.compact-select option {
+  @apply text-sm;
+}
+
+/* Order by links - extremely compact */
+.order-bar {
+  @apply flex flex-wrap justify-center gap-1 py-1 mb-2;
+}
+
+.order-link {
+  @apply text-xs px-2 py-0.5 rounded hover:bg-gray-100;
+}
+
+.order-link.on {
+  @apply bg-blue-100 text-blue-800;
+}
+
+/* Search button */
+.search-btn {
+  @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 text-sm rounded mt-2;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .manufacturer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .manufacturer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .compact-list {
+    max-height: 80px;
+  }
+}
