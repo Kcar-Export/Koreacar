@@ -19,11 +19,35 @@ SwiperCore.use([Navigation, Thumbs]);
 let cachedCarsData = null;
 
 // Improved image URL handler with better error handling
+// Build fallback image URL from seq and image index (1-based)
+const buildImageUrlFromSeq = (seq, index = 1) => {
+  if (!seq || seq.length < 5) return placeHolderImage;
+  const first5 = seq.slice(0, 5);
+  return `https://photo5.autosale.co.kr/car_large/NC${first5}/NC${seq}_${index}.jpg`;
+};
+
+// Improved image URL handler that works with both direct URLs and sequence-based URLs
+// Remove the proxy version and use this simple getImageUrl function instead
 const getImageUrl = (url) => {
-  if (url && url.startsWith('http')) {
-    return `http://localhost:4000/image-proxy?url=${encodeURIComponent(url)}`;
+  // If we have a valid URL, use it directly
+  if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+    return url;
   }
+  // Otherwise use placeholder
   return placeHolderImage;
+};
+
+// Process image collection from the CSV data
+const getImageCollection = (image_urls_string) => {
+  if (!image_urls_string) return [placeHolderImage];
+  
+  // Split the string and filter valid URLs
+  const urls = image_urls_string
+    .split(',')
+    .map(url => url.trim())
+    .filter(url => url && (url.startsWith('http://') || url.startsWith('https://')));
+  
+  return urls.length > 0 ? urls : [placeHolderImage];
 };
 
 const CarDetails = () => {
@@ -47,13 +71,11 @@ const CarDetails = () => {
 useEffect(() => {
 const processCarData = (car) => {
   setData(car);
-
-  // Process image URLs - ensure we have valid URLs
-  const images = car.image_urls
-    ? car.image_urls.split(',').map(url => url.trim()).filter(url => url && url.startsWith('http'))
-    : [];
-  console.log('Images array:', images); // <-- ADD THIS LINE
-  setImageCollection(images.length > 0 ? images : [placeHolderImage]);
+  
+  // Process image URLs directly from CSV
+  const images = getImageCollection(car.image_urls);
+  console.log('Images array:', images);
+  setImageCollection(images);
 };
 
   const fetchCarDetails = async () => {
@@ -216,16 +238,17 @@ console.log('Found car:', car);
   {imageCollection.map((img, index) => (
     <SwiperSlide key={`main-${index}`}>
       <div className="relative w-full pt-[60%] bg-gray-200 rounded overflow-hidden">
-        <img
-          src={getImageUrl(img)}
-          alt={`${data.make} ${data.model} ${index + 1}`}
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = placeHolderImage;
-          }}
-          loading="lazy"
-        />
+<img
+  src={getImageUrl(img)}
+  alt={`${data.make} ${data.model} ${index + 1}`}
+  className="absolute top-0 left-0 w-full h-full object-cover"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = placeHolderImage;
+  }}
+  loading="lazy"
+  referrerPolicy="no-referrer" // Important for external images
+/>
       </div>
     </SwiperSlide>
   ))}
@@ -260,16 +283,17 @@ console.log('Found car:', car);
                           activeIndex === index ? 'border-blue-500' : 'border-transparent'
                         } rounded overflow-hidden cursor-pointer`}
                       >
-                        <img
-                          src={getImageUrl(img)}
-                          alt={`Thumbnail ${index + 1}`}
-                          className="absolute top-0 left-0 w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = placeHolderImage;
-                          }}
-                          loading="lazy"
-                        />
+<img
+  src={getImageUrl(img)}
+  alt={`${data.make} ${data.model} ${index + 1}`}
+  className="absolute top-0 left-0 w-full h-full object-cover"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = placeHolderImage;
+  }}
+  loading="lazy"
+  referrerPolicy="no-referrer" // Important for external images
+/>
                       </div>
                     </SwiperSlide>
                   ))}
