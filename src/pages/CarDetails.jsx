@@ -1,64 +1,125 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useParams, useLocation } from 'react-router-dom'; // <-- add useLocation
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { moneyFormatter } from '../utils/moneyFormatter';
 import { dateFormatter } from '../utils/dateFormatter';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Thumbs } from 'swiper/modules';
-import Gallery from '../components/Gallery';
+import Papa from 'papaparse';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FaSquareWhatsapp } from "react-icons/fa6";
 import placeHolderImage from '../assets/placeholder_image.jpg';
-import { useNavigate } from 'react-router-dom';
+import SwiperCore from 'swiper';
 
-const getProxiedImageUrl = (url) =>
-  url ? `http://localhost:4000/image-proxy?url=${encodeURIComponent(url)}` : placeHolderImage;
+// Initialize Swiper modules
+SwiperCore.use([Navigation, Thumbs]);
+
+// Global cache for CSV data
+let cachedCarsData = null;
+
+// Improved image URL handler with better error handling
+const getImageUrl = (url) => {
+  if (url && url.startsWith('http')) {
+    return `http://localhost:4000/image-proxy?url=${encodeURIComponent(url)}`;
+  }
+  return placeHolderImage;
+};
 
 const CarDetails = () => {
   const { id } = useParams();
-  const location = useLocation(); // <-- get location
+  const location = useLocation();
   const [data, setData] = useState(null);
   const [imageCollection, setImageCollection] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const mainSwiperRef = useRef(null);
-  const carsData = useSelector(state => state.car.carsData);
   const navigate = useNavigate();
+  const [mainSwiper, setMainSwiper] = useState(null);
 
   const parseFeatures = (featuresString) => {
     if (!featuresString) return [];
     return featuresString.split(',').map(feature => feature.trim());
   };
 
-  const getPageFromQuery = () => {
-    const params = new URLSearchParams(location.search);
-    return params.get('page') || 1;
+useEffect(() => {
+const processCarData = (car) => {
+  setData(car);
+
+  // Process image URLs - ensure we have valid URLs
+  const images = car.image_urls
+    ? car.image_urls.split(',').map(url => url.trim()).filter(url => url && url.startsWith('http'))
+    : [];
+  console.log('Images array:', images); // <-- ADD THIS LINE
+  setImageCollection(images.length > 0 ? images : [placeHolderImage]);
+};
+
+  const fetchCarDetails = async () => {
+    try {
+      // Use cached data if available
+      if (cachedCarsData) {
+        // Pad id to 10 digits with leading zeros
+const paddedId = id.toString().padStart(7, '0');
+const car = cachedCarsData.find(c => c.seq === paddedId || c.seq === id || c.seq == id);
+        if (car) {
+          processCarData(car);
+        } else {
+          setError('Car not found');
+        }
+        setLoading(false);
+        return;
+      }
+
+      // Fetch and parse CSV data
+      const response = await fetch('/karaba.csv');
+      const text = await response.text();
+
+      Papa.parse(text, {
+        header: false,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const keys = [
+            'seq', 'safe_url', 'title', 'summary', 'price', 'model', 'manufacturer_year', 'transmission', 'color',
+            'year', 'mileage', 'fuel', 'plate', 'accidents', 'features', 'image_urls', 'scraped_at'
+          ];
+          cachedCarsData = results.data.map(row => {
+            const obj = {};
+            keys.forEach((key, idx) => obj[key] = row[idx]);
+            return obj;
+          });
+
+          // Pad id to 10 digits with leading zeros
+const paddedId = id.toString().padStart(7, '0');
+console.log('Requested id:', id);
+console.log('Padded id (7):', paddedId);
+console.log('All seqs:', cachedCarsData.map(c => c.seq));
+const car = cachedCarsData.find(c => c.seq === paddedId || c.seq === id || c.seq == id);
+console.log('Found car:', car);  
+
+          if (car) {
+            processCarData(car);
+          } else {
+            setError('Car not found');
+          }
+          setLoading(false);
+        },
+        error: (err) => {
+          console.error("CSV parsing error:", err);
+          setError('Failed to load car data');
+          setLoading(false);
+        }
+      });
+    } catch (err) {
+      setError('Failed to load car data');
+      setLoading(false);
+    }
   };
 
-  const page = getPageFromQuery();
-
-  useEffect(() => {
-    const fetchCarDetails = async () => {
-      try {
-        const res = await fetch(`http://localhost:4000/cars/${id}`);
-        const result = await res.json();
-        if (result) {
-          const images = result.image_urls
-            ? result.image_urls.split(',').map(url => url.trim()).filter(Boolean)
-            : [];
-          setImageCollection(images);
-          setData(result);
-        }
-      } catch (err) {
-        console.error("Failed to fetch car details:", err);
-      }
-    };
-
-    fetchCarDetails();
-  }, [id]);
-
+  fetchCarDetails();
+}, [id]);
   const handleSlideChange = (swiper) => {
     setActiveIndex(swiper.activeIndex);
   };
@@ -95,27 +156,28 @@ const CarDetails = () => {
     );
   }
 
-  if (!data) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (error) return <div className="flex justify-center items-center h-screen text-red-600">{error}</div>;
+  if (!data) return <div className="flex justify-center items-center h-screen">Car not found</div>;
   
   const availableFeatures = parseFeatures(data.features);
 
   return (
-<div className="bg-gray-100 min-h-screen">
-  {/* Back Button */}
-  <div className="bg-white py-3 px-5 shadow-sm sticky top-0 z-10">
-    <div className="max-w-6xl mx-auto">
-      <button
-        onClick={() => navigate(-1)}  // Goes back to previous page
-        className="text-gray-600 hover:text-gray-900 flex items-center"
-      >
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        Back to List
-      </button>
-    </div>
-  </div>
-
+    <div className="bg-gray-100 min-h-screen">
+      {/* Back Button */}
+      <div className="bg-white py-3 px-5 shadow-sm sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto">
+          <button
+            onClick={() => navigate(-1)}
+            className="text-gray-600 hover:text-gray-900 flex items-center"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to List
+          </button>
+        </div>
+      </div>
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto py-5 px-4">
@@ -136,89 +198,84 @@ const CarDetails = () => {
         <div className="topleft bg-white p-4 mb-5 rounded-lg shadow">
           <div className="relative mb-4 max-w-5xl mx-auto">
             {/* Main Image Swiper */}
-            <Swiper
-              ref={mainSwiperRef}
-              modules={[Navigation, Thumbs]}
-              navigation
-              thumbs={{ swiper: thumbsSwiper }}
-              spaceBetween={10}
-              slidesPerView={1}
-              onSlideChange={handleSlideChange}
-              className="rounded-lg overflow-hidden mb-4"
-            >
-              {imageCollection.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <div className="relative w-full pt-[60%] bg-gray-200 rounded overflow-hidden">
-                    <img
-                      src={getProxiedImageUrl(img)}
-                      alt={`${data.make} ${data.model} ${index + 1}`}
-                      className="absolute top-0 left-0 w-full h-full object-cover"
-                      onError={e => { e.target.onerror = null; e.target.src = placeHolderImage; }}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            {imageCollection.length > 0 ? (
+<Swiper
+  key={imageCollection.join(',')} // <-- ADD THIS LINE
+  ref={mainSwiperRef}
+  modules={[Navigation, Thumbs]}
+  navigation
+  thumbs={{
+    swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+  }}
+  spaceBetween={10}
+  slidesPerView={1}
+  onSlideChange={handleSlideChange}
+  onSwiper={setMainSwiper}
+  className="rounded-lg overflow-hidden mb-4"
+>
+  {imageCollection.map((img, index) => (
+    <SwiperSlide key={`main-${index}`}>
+      <div className="relative w-full pt-[60%] bg-gray-200 rounded overflow-hidden">
+        <img
+          src={getImageUrl(img)}
+          alt={`${data.make} ${data.model} ${index + 1}`}
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = placeHolderImage;
+          }}
+          loading="lazy"
+        />
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
+            ) : (
+              <div className="relative w-full pt-[60%] bg-gray-200 rounded overflow-hidden">
+                <img
+                  src={placeHolderImage}
+                  alt="Placeholder"
+                  className="absolute top-0 left-0 w-full h-full object-cover"
+                />
+              </div>
+            )}
 
-            {/* Thumbnail Swiper - Mobile layout changes */}
-            <div className="md:hidden">
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                modules={[Thumbs]}
-                watchSlidesProgress
-                spaceBetween={8}
-                slidesPerView={4}
-                className="thumbnail-swiper"
-              >
-                {imageCollection.map((img, index) => (
-                  <SwiperSlide key={index}>
-                    <div
-                      onClick={() => mainSwiperRef.current.swiper.slideTo(index)}
-                      className={`relative pt-[75%] border-2 ${
-                        activeIndex === index ? 'border-blue-500' : 'border-transparent'
-                      } rounded overflow-hidden cursor-pointer`}
-                    >
-                      <img
-                        src={getProxiedImageUrl(img)}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="absolute top-0 left-0 w-full h-full object-cover"
-                        onError={e => { e.target.onerror = null; e.target.src = placeHolderImage; }}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-
-            {/* Thumbnail Swiper - Desktop layout */}
-            <div className="hidden md:block">
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                modules={[Thumbs]}
-                watchSlidesProgress
-                spaceBetween={8}
-                slidesPerView={8}
-                className="thumbnail-swiper"
-              >
-                {imageCollection.map((img, index) => (
-                  <SwiperSlide key={index}>
-                    <div
-                      onClick={() => mainSwiperRef.current.swiper.slideTo(index)}
-                      className={`relative pt-[75%] border-2 ${
-                        activeIndex === index ? 'border-blue-500' : 'border-transparent'
-                      } rounded overflow-hidden cursor-pointer`}
-                    >
-                      <img
-                        src={getProxiedImageUrl(img)}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="absolute top-0 left-0 w-full h-full object-cover"
-                        onError={e => { e.target.onerror = null; e.target.src = placeHolderImage; }}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
+            {/* Thumbnail Swiper (Desktop Only) */}
+            {imageCollection.length > 1 && (
+              <div className="hidden md:block">
+                <Swiper
+                  key={imageCollection.join(',')} // <-- ADD THIS LINE
+                  onSwiper={setThumbsSwiper}
+                  modules={[Thumbs]}
+                  watchSlidesProgress
+                  spaceBetween={8}
+                  slidesPerView={Math.min(8, imageCollection.length)}
+                  className="thumbnail-swiper"
+                >
+                  {imageCollection.map((img, index) => (
+                    <SwiperSlide key={`thumb-${index}`}>
+                      <div
+                        onClick={() => mainSwiper?.slideTo(index)}
+                        className={`relative pt-[75%] border-2 ${
+                          activeIndex === index ? 'border-blue-500' : 'border-transparent'
+                        } rounded overflow-hidden cursor-pointer`}
+                      >
+                        <img
+                          src={getImageUrl(img)}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="absolute top-0 left-0 w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = placeHolderImage;
+                          }}
+                          loading="lazy"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            )}
           </div>
         </div>
 

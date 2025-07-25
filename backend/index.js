@@ -16,17 +16,23 @@ const pool = mysql.createPool({
 
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://127.0.0.1:5173',
   'https://8a17856a480e.ngrok-free.app',
-   'https://d8b262f15c72.ngrok-free.app'
+  'https://d8b262f15c72.ngrok-free.app'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
-    console.log('CORS Origin:', origin);
-    callback(null, true);  // allow all origins
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn('❌ Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-}));
+  credentials: true
+};
 
 
 // Get all cars
