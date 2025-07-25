@@ -7,7 +7,7 @@ const Listing = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://koreacar-backend.onrender.com/cars')
+    fetch('http://localhost:4000/cars')
       .then(res => res.json())
       .then(data => {
         setCars(data);

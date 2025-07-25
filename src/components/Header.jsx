@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react'; // Use Lucide icons
+import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,14 +9,22 @@ const Header = () => {
 
   return (
     <header className="bg-black text-white shadow-md">
-      <div className="max-w-screen-xl mx-auto px-4 py-10 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" aria-label="Go to Home">
-          <img
-            src="/logo.png"
-            alt="Logo"
-            className="h-20 w-auto object-contain cursor-pointer"
-          />
+      <div className="max-w-screen-xl mx-auto px-4 py-6 flex justify-between items-center">
+        {/* Text Logo */}
+        <Link to="/" aria-label="Go to Home" className="group">
+          <div className="flex items-center">
+            <div className="text-white font-bold tracking-wider transform transition-all duration-300 group-hover:scale-105">
+              <span className="text-3xl md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                KC
+              </span>
+              <span className="text-3xl md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-red-700">
+                AR
+              </span>
+              <span className="text-3xl md:text-4xl font-extrabold tracking-widest text-white">
+                EXPORT
+              </span>
+            </div>
+          </div>
         </Link>
 
         {/* Hamburger Icon (Mobile) */}
@@ -53,7 +61,13 @@ const Header = () => {
           >
             À propos
           </Link>
-        <Link to="/contact" className="hover:text-red-500 transition">Contact</Link>
+          <Link
+            to="/contact"
+            onClick={() => setMenuOpen(false)}
+            className="block hover:text-red-500 transition"
+          >
+            Contact
+          </Link>
         </nav>
       )}
     </header>

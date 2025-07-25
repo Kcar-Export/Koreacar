@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import { FaSquareWhatsapp } from "react-icons/fa6";
 import placeHolderImage from '../assets/placeholder_image.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const getProxiedImageUrl = (url) =>
   url ? `http://localhost:4000/image-proxy?url=${encodeURIComponent(url)}` : placeHolderImage;
@@ -24,6 +25,7 @@ const CarDetails = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const mainSwiperRef = useRef(null);
   const carsData = useSelector(state => state.car.carsData);
+  const navigate = useNavigate();
 
   const parseFeatures = (featuresString) => {
     if (!featuresString) return [];
@@ -40,7 +42,7 @@ const CarDetails = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const res = await fetch(`https://koreacar-backend.onrender.com/cars/${id}`);
+        const res = await fetch(`http://localhost:4000/cars/${id}`);
         const result = await res.json();
         if (result) {
           const images = result.image_urls
@@ -98,29 +100,21 @@ const CarDetails = () => {
   const availableFeatures = parseFeatures(data.features);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* Back Button */}
-      <div className="bg-white py-3 px-5 shadow-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto">
-<Link
-  to={{
-    pathname: location.state?.from || '/',
-    search: location.state?.from?.includes('?') ? '' : location.search,
-    state: {
-      filter: location.state?.filter,
-      page: location.state?.page
-    }
-  }}
-  className="text-gray-600 hover:text-gray-900 flex items-center"
->
-
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back to List
-          </Link>
-        </div>
-      </div>
+<div className="bg-gray-100 min-h-screen">
+  {/* Back Button */}
+  <div className="bg-white py-3 px-5 shadow-sm sticky top-0 z-10">
+    <div className="max-w-6xl mx-auto">
+      <button
+        onClick={() => navigate(-1)}  // Goes back to previous page
+        className="text-gray-600 hover:text-gray-900 flex items-center"
+      >
+        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to List
+      </button>
+    </div>
+  </div>
 
 
       {/* Main Content */}

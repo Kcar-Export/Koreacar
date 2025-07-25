@@ -14,10 +14,20 @@ const pool = mysql.createPool({
   database: 'car_listings',
 });
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://8a17856a480e.ngrok-free.app',
+   'https://d8b262f15c72.ngrok-free.app'
+];
+
 app.use(cors({
-  origin: 'https://koreacar.onrender.com', // allow only your frontend domain
+  origin: function (origin, callback) {
+    console.log('CORS Origin:', origin);
+    callback(null, true);  // allow all origins
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
+
 
 // Get all cars
 app.get('/cars', async (req, res) => {
@@ -229,3 +239,4 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`✅ Backend API running at http://localhost:${PORT}`);
 });
+
