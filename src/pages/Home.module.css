@@ -1,0 +1,97 @@
+.container {
+  width: 100%;
+  background-color: #f9f9f9;
+  padding-bottom: 40px;
+}
+
+.toggleContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px 40px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.toggleButton {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.toggleButton:hover {
+  background: #e0e0e0;
+}
+
+.toggleButton.active {
+  background: #0066cc;
+  color: white;
+  border-color: #0066cc;
+}
+
+.filterSection {
+  background: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.filterSection.top {
+  width: 100%;
+}
+
+.filterSection.side {
+  width: 280px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.carListSection {
+  flex: 1;
+  padding: 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.aboutLink {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.linkButton {
+  display: inline-block;
+  background: #0066cc;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.linkButton:hover {
+  background: #0055aa;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .toggleContainer {
+    display: none;
+  }
+  
+  .filterSection {
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .carListSection {
+    padding: 15px;
+  }
+}

@@ -73,12 +73,19 @@ const CarItem = ({ car }) => {
           {car.transmission || 'Automatic'}
         </div>
 
-        <div className="moneyout mt-2">
-          <span className="money text-red-600 font-semibold text-lg">
-            {moneyFormatter(car.price)}
-          </span>
-          <span className="manwon text-sm text-gray-600"> won</span>
-        </div>
+<div className="moneyout mt-2 flex justify-between items-center gap-3">
+  {/* USD Price */}
+  <div className="text-blue-700 font-medium text-sm">
+    {`$${(car.price / 1400).toLocaleString(undefined, {
+      maximumFractionDigits: 0,
+    })} USD`}
+  </div>
+
+  {/* WON Price formatted to 만원 */}
+  <div className="money text-red-600 font-semibold text-lg">
+    {`${Math.floor(car.price / 10000).toLocaleString()} 만원`}
+  </div>
+</div>
 
         {/* View Details Button */}
         <div className="mt-3">
