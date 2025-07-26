@@ -174,10 +174,6 @@ const KarabaFilter = ({ onFilterChange }) => {
     }
   };
 
-  const handleOrderChange = (orderValue) => {
-    setFormData(prev => ({ ...prev, ord_chk: orderValue }));
-  };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -204,31 +200,6 @@ const KarabaFilter = ({ onFilterChange }) => {
       <input type="hidden" name="m" value={formData.m} />
       <input type="hidden" name="s" value={formData.s} />
       <input type="hidden" name="ord_chk" value={formData.ord_chk} />
-
-      {/* Order By Section */}
-      <div className={styles.orderBar}>
-        <ul>
-          {[
-            { value: '4', label: 'lowest to highest prices' },
-            { value: '5', label: 'highest to lowest prices' },
-            { value: '2', label: 'lowest mileage' },
-            { value: '3', label: 'highest mileage' },
-            { value: '1', label: 'later models' },
-            { value: '0', label: 'recent models', active: formData.ord_chk === '0' },
-            { value: '6', label: 'most recently registered' }
-          ].map((item) => (
-            <li key={item.value}>
-              <button
-                type="button"
-                className={`${styles.orderLink} ${formData.ord_chk === item.value ? styles.active : ''}`}
-                onClick={() => handleOrderChange(item.value)}
-              >
-                {item.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
 
       {/* Manufacturer and Model Selection - Made vertical for mobile */}
       <div className={styles.manufacturerContainer}>
@@ -285,26 +256,6 @@ const KarabaFilter = ({ onFilterChange }) => {
             <option value="6">Hybrid</option>
             <option value="7">Hydrogen</option>
             <option value="8">Other</option>
-          </select>
-        </div>
-
-        {/* Type of Car */}
-        <div className={styles.filterGroup}>
-          <label>Type of Car</label>
-          <select 
-            name="cartype" 
-            className={styles.filterSelect}
-            value={formData.cartype}
-            onChange={handleInputChange}
-          >
-            <option value="">:::choose one:::</option>
-            <option value="1">Subcompact</option>
-            <option value="2">Compact</option>
-            <option value="3">Small Midsized</option>
-            <option value="4">Midsized</option>
-            <option value="5">Large</option>
-            <option value="6">RV/SUV</option>
-            <option value="7">Sports Car</option>
           </select>
         </div>
 

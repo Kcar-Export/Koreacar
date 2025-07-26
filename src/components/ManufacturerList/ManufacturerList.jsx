@@ -8,6 +8,157 @@ const ManufacturerList = ({ onManufacturerFilterChange }) => {
 
   // Sample data structure
 const manufacturerData = {
+
+
+
+  'Hyundai': {
+  series: [
+    'Accent', 'Aero Bus', 'Aerocity', 'Aerotown', 'Aslan', 'Atos', 'Avante', 'BlueOn', 'Casper', 'Chorus', 'Click', 'County', 'Dynasty', 'Elantra', 'Elec City', 'Equus', 'Excell', 'Galloper', 'Genesis', 'Global 900', 'Grace', 'Grandeur', 'Green City', 'I30', 'I40', 'Ioniq', 'Ioniq5', 'Ioniq6', 'Ix35', 'Kona', 'La Vita', 'Large(Medium)Truck', 'Libero', 'Marcia', 'MaxCruz', 'Mega Truck', 'Mighty', 'New Power Truck', 'Nexo', 'Palisad', 'Pavise', 'Pony', 'Porter', 'Presto', 'Santa Cruz', 'Santafe', 'Santamo', 'Scoupe', 'Solati', 'Sonata', 'St1', 'Starex', 'Staria', 'Stella', 'Super(Medium)Truck', 'Terracan', 'Tiburon', 'Trago', 'Trajet Xg', 'Tucson', 'Tuscani', 'Unicity', 'Universe', 'Veloster', 'Venue', 'Veracruz', 'Verna'
+  ],
+  models: {
+    'Accent': ['Accent', 'New Accent'],
+    'Aero Bus': ['Aero Bus'],
+    'Aerocity': ['Aerocity', 'New Super Aero City', 'Super Aero City'],
+    'Aerotown': ['Aerotown', 'e-Aerotown'],
+    'Aslan': ['Aslan'],
+    'Atos': ['Atos'],
+    'Avante': ['All New Avante', 'Avante (CN7)', 'Avante AD', 'Avante Hybrid', 'Avante Hybrid (CN7)', 'Avante MD', 'Avante N', 'Avante XD', 'New Avante XD', 'The New Avante (CN7)', 'The New Avante AD', 'The New Avante Hybrid (CN)', 'The New Avante MD', 'The New Avante N'],
+    'BlueOn': ['BlueOn'],
+    'Casper': ['Casper Electric', 'Casper', 'The New Casper'],
+    'Chorus': ['Chorus'],
+    'Click': ['Click', 'New Click', 'Click Hybrid'],
+    'County': ['County', 'County Electric', 'County New Breeze', 'e-County', 'New County'],
+    'Dynasty': ['Dynasty', 'New Dynasty'],
+    'Elantra': ['Elantra'],
+    'Elec City': ['Elec City', 'Elec City Double Decker', 'Elec City FCEV', 'Elec City Town'],
+    'Equus': ['Equus', 'Equus (New)', 'New Equus'],
+    'Excell': ['Excell'],
+    'Galloper': ['Galloper'],
+    'Genesis': ['Genesis', 'Genesis Coupe', 'New Prada', 'Genesis DH'],
+    'Global 900': ['Global 900'],
+    'Grace': ['Grace', 'New Grace'],
+    'Grandeur': ['Grandeur', 'Grandeur HG Hybrid', 'Grandeur New Luxury', 'Grandeur IG', 'Grandeur HG', 'Grandeur IG Hybrid', 'Grandeur TG', 'Grandeur XG', 'New Grandeur', 'New Grandeur XG', 'The All New Grandeur', 'The All New Grandeur IG', 'The Luxury Grandeur', 'The New Grandeur IG Hybrid', 'The New Grandeur IG'],
+    'Green City': ['Green City'],
+    'I30': ['I30', 'New I30', 'i30 PD', 'i30cw', 'The New i30'],
+    'I40': ['I40', 'New I40'],
+    'Ioniq': ['Ioniq Plug-in', 'Ioniq Hybrid', 'Ioniq Electric', 'The New Ioniq Plug-in', 'The New Ioniq Hybrid', 'The New Ioniq Electric'],
+    'Ioniq5': ['Ioniq5', 'Ioniq 5 N', 'The New Ioniq5'],
+    'Ioniq6': ['Ioniq6'],
+    'Ioniq9': ['Ioniq9'],
+    'Ix35': ['Ix35', 'New Ix35'],
+    'Kona': ['Kona', 'Kona Electric', 'Kona Hybrid', 'The New Kona Hybrid', 'The All New Kona', 'The New Kona', 'The New Kona Electric', 'The All-New Kona Electric', 'The All New Kona Hybrid'],
+    'La Vita': ['La Vita'],
+    'Large(Medium)Truck': ['Large(Medium)Truck'],
+    'Libero': ['Libero'],
+    'Marcia': ['Marcia'],
+    'MaxCruz': ['MaxCruz', 'The New MaxCruz'],
+    'Mega Truck': ['Mega Truck'],
+    'Mighty': ['Mighty', 'All New Mighty', 'e-Mighty', 'Mighty II', 'The New Mighty'],
+    'New Power Truck': ['New Power Truck'],
+    'Nexo': ['Nexo'],
+    'Palisad': ['Palisad', 'The New Palisade', 'The All New Palisade', 'The All New Palisade Hybrid'],
+    'Pavise': ['Pavise', 'The New Pavise'],
+    'Pony': ['Pony', 'Pony II'],
+    'Porter': ['Porter', 'Porter II', 'Porter II Electric'],
+    'Presto': ['Presto'],
+    'Santa Cruz': ['Santa Cruz'],
+    'Santa Fe': ['Santa Fe', 'Santa Fe (CM)', 'Santa Fe (DM)', 'The New Santa Fe(TM)', 'Santa Fe The Prime', 'The All New Santa Fe', 'The All New Santa Fe Hybrid', 'The New Santa Fe', 'The New Santa Fe Hybrid'],
+    'Santamo': ['Santamo'],
+    'Scoupe': ['Scoupe'],
+    'Solati': ['Solati'],
+    'Sonata': ['EF Sonata', 'LF Sonata', 'LF Sonata Hybrid', 'LF Sonata New Rise', 'LF Sonata New Rise Hybrid', 'New EF Sonata', 'NF Sonata', 'NF Sonata Transform', 'Sonata', 'Sonata (DN8)', 'Sonata (DN8) Hybrid', 'Sonata II', 'Sonata III', 'Sonata The Brilliant', 'Sonata The Edge', 'Sonata The Edge Hybrid', 'YF Sonata', 'YF Sonata Hybrid'],
+    'St1': ['St1'],
+    'Starex': ['Starex', 'Grand Starex', 'New Starex Jumbo', 'New Starex', 'Starex Jumbo', 'The New Grand Starex'],
+    'Staria': ['Staria', 'Staria Hybrid'],
+    'Stella': ['Stella'],
+    'Super(Medium)Truck': ['Super(Medium)Truck'],
+    'Terracan': ['Terracan'],
+    'Tiburon': ['Tiburon', 'Tiburon Turbulence'],
+    'Trago': ['Trago', 'Trago Xcient', 'Trago Xcient Pro', 'Xcient FCEV'],
+    'Trajet Xg': ['Trajet Xg'],
+    'Tucson': ['Tucson', 'Tucson ix', 'Tucson ix FCEV', 'The New Tucson Hybrid', 'The All New Tucson Hybrid', 'The All New Tucson', 'New Tuckson', 'New Tucson ix', 'All New Tucson'],
+    'Tuscani': ['Tuscani', 'New Tuscani'],
+    'Unicity': ['Unicity'],
+    'Universe': ['Universe', 'Universe FCEV'],
+    'Veloster': ['Veloster', 'Veloster N', 'The New Veloster', 'Veloster (JS)'],
+    'Venue': ['Venue'],
+    'Veracruz': ['Veracruz'],
+    'Verna': ['Verna', 'New Verna', 'Verna Transform']
+  }
+},
+'Kia': {
+  series: ['(Jumbo) Titan', 'Avella', 'Bongo', 'Capital', 'Carens', 'Carnival', 'Casta', 'Cerato', 'Ceres', 'Combi', 'Concorde', 'Copy Wide', 'Cosmos', 'Credos', 'Elan', 'Enterprise', 'EV3', 'EV4', 'EV6', 'EV9', 'Forte', 'Granbird', 'Granto', 'K3', 'K5', 'K7', 'K8', 'K9', 'Lotze', 'Mohave', 'Morning', 'Niro', 'Opirus', 'Optima', 'Parmax', 'Potentia', 'Pregio', 'Pride', 'Ray', 'Retona', 'Rhino', 'Rio', 'Rockstar', 'Seltos', 'Sephia', 'Shuma', 'Sorento', 'Soul', 'Spectra', 'Sportage', 'Stinger', 'Stonic', 'Tasman', 'Telluride', 'Towner', 'Trade', 'Vesta', 'Visto', 'X-Track'],
+  models: {}
+},
+
+'KG Mobility (SsangYong)': {
+  series: ['Actyon', 'Chairman', 'Istana', 'Korando', 'Kyron', 'Musso', 'Rexton', 'Rodius', 'SY Truck', 'Tivoli', 'Torres'],
+  models: {}
+},
+
+'Renault Samsung': {
+  series: ['Arkana', 'Captur', 'Clio', 'Grand Koleos', 'Master', 'QM3', 'QM5', 'QM6', 'SM3', 'SM3 Z.E', 'SM5', 'SM6', 'SM7', 'Truck', 'Twizy', 'XM3', 'ZOE'],
+  models: {}
+},
+
+'Chevrolet': {
+  series: [
+    'Astro Van', 'Avalanche', 'Blazer', 'Bolt', 'Camaro', 'Chevy Van', 'Cobalt', 'Colorado', 'Corvette', 'Cruze', 'Equinox', 'Express Van', 'HHR', 'Impala', 'K5 Blazer', 'Lumina', 'Malibu', 'Monte Carlo', 'S-10', 'Silverado', 'SS', 'SSR', 'Suburban', 'Tahoe', 'Tracker', 'Traverse', 'Trax', 'Uplander', 'Ventura'
+  ],
+  models: {}
+},
+'Chevrolet(Daewoo)': {
+  series: [
+    'Malibu', 'Cruze', 'Equinox', 'Traverse', 'Acadia', 'Alpheon', 'Aveo', 'Bolt', 'Brougham', 'Camaro', 'Cielo', 'Colorado', 'Corvette', 'Equinox', 'Damas', 'Espero', 'G2x', 'Gentra', 'Impala', 'Kalos', 'Labo', 'Lacetti', 'Lanos', 'Le Mans', 'Leganza', 'Magnus', 'Matiz', 'Nexia', 'Nubira', 'Orlando', 'Prince', 'Rezzo', 'Spark', 'Statesman', 'Super Long', 'Tahoe', 'Tico', 'Tosca', 'Trailblazer', 'Traverse', 'Trax', 'Veritas', 'Winsun', 'Cruze'
+  ],
+  models: {
+    'Malibu': ['Malibu LS', 'Malibu LT', 'Malibu Premier']
+  }
+},
+
+'Mercedes-Benz': {
+  series: ['190', 'A-Class', 'AMG GT', 'B-Class', 'C-Class', 'CL-Class', 'CLA-Class', 'CLE', 'CLK-Class', 'CLS-Class', 'E-Class', 'EQA', 'EQB', 'EQC', 'EQE', 'EQS', 'G-Class', 'GL-Class', 'GLA-Class', 'GLB-Class', 'GLC-Class', 'GLE-Class', 'GLK-Class', 'GLS-Class', 'M-Class', 'Mattress', 'Maybach', 'R-Class', 'S-Class', 'SE', 'SEC', 'SL-Class', 'SLC-Class', 'SLK-Class', 'SLR', 'SLS AMG', 'Sprinter', 'V-Class', 'Viano'],
+  models: {}
+},
+'Mercedes-Benz Commercial': {
+  series: ['Medium Large Truck'],
+  models: {}
+},
+
+'BMW': {
+  series: [
+    '1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', '8 Series', 'Gran Turismo (GT)', 'i Series', 'M Series', 'X Series', 'Z Series'
+  ],
+  models: {}
+},
+
+'Audi': {
+  series: [
+    '100', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Allroad Quattro', 'e-tron', 'e-tron GT', 'e-tron S', 'Q2', 'Q3', 'Q4 e-tron', 'Q5', 'Q6 e-tron', 'Q7', 'Q8', 'Q8 e-tron', 'R8', 'RS e-tron GT', 'RS Q3', 'RS Q8', 'RS3', 'RS4', 'RS5', 'RS6', 'RS7', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'SQ5', 'SQ6 e-tron', 'SQ7', 'SQ8', 'SQ8 e-tron', 'TT', 'TTRS', 'TTS', 'V8'
+  ],
+  models: {}
+},
+
+'Volkswagen': {
+  series: ['Arteon', 'Atlas', 'Beetle', 'Bora', 'Caddy', 'CC', 'Corrado', 'Eos', 'Golf', 'Grand California', 'ID.4', 'ID.5', 'Jetta', 'Lupo', 'Microbus', 'Passat', 'Phaeton', 'Polo', 'Routan', 'Scirocco', 'Sharan', 'T-Roc', 'Taos', 'Tiguan', 'Touareg', 'Touran', 'Transporter', 'up!', 'Vento'],
+  models: {}
+},
+
+'Toyota': {
+  series: ['4Runner', '86', 'Allion', 'Alphard', 'Altezza', 'Aqua', 'Aristo', 'Auris', 'Avalon', 'Avensis', 'Aygo', 'bB', 'Blade', 'C-HR', 'Camry', 'Carina ED', 'Celica', 'Celsior', 'Century', 'Chaser', 'Corolla', 'Corolla Spacio', 'Corona', 'Cresta', 'Crown', 'Esquire', 'Estima', 'FJ Cruiser', 'Forte', 'Fortuner', 'GAIA', 'GR86', 'Harrier', 'Hiace', 'Highlander', 'Hilux Surf', 'Ipsum', 'IQ', 'Isis', 'ist', 'Land Cruiser', 'Land Cruiser Prado', 'Mark II', 'Mark X', 'Matrix', 'MR-2', 'MR-S', 'Noah', 'Paseo', 'Passo', 'Premio', 'Previa', 'Prius', 'Progress', 'Ractis', 'Raum', 'RAV4', 'Roomy', 'Rush', 'Sai', 'Sequoia', 'Sera', 'Sienna', 'Sienta', 'Soarer', 'Solara', 'Sprinter Trueno', 'Supra', 'Tacoma', 'Tundra', 'Vanguard', 'Vellfire', 'Venza', 'Verso', 'Vios', 'Vista', 'Vitz (Yaris)', 'Voxy', 'Will', 'Windom', 'Wish'],
+  models: {
+    'Camry': ['Camry LE', 'Camry SE', 'Camry XLE'],
+    'Corolla': ['Corolla LE', 'Corolla SE', 'Corolla XSE'],
+    'RAV4': ['RAV4 LE', 'RAV4 XLE', 'RAV4 Limited'],
+    'Highlander': ['Highlander LE', 'Highlander XLE', 'Highlander Limited']
+  }
+},
+'Lexus': {
+  series: ['CT', 'ES', 'GS', 'GX', 'HS', 'IS', 'LC', 'LFA', 'LM', 'LS', 'LX', 'NX', 'RC', 'RX', 'RZ', 'SC', 'UX'],
+  models: {}
+},
+
+
   'Acura': {
   series: [
     'CL', 'CSX', 'ILX', 'MDX', 'NSX', 'RDX', 'RL', 'RLX', 'RSX', 'TL', 'TLX', 'TSX', 'Vigor', 'ZDX'
@@ -44,12 +195,7 @@ const manufacturerData = {
   ],
   models: {}
 },
-'Audi': {
-  series: [
-    '100', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Allroad Quattro', 'e-tron', 'e-tron GT', 'e-tron S', 'Q2', 'Q3', 'Q4 e-tron', 'Q5', 'Q6 e-tron', 'Q7', 'Q8', 'Q8 e-tron', 'R8', 'RS e-tron GT', 'RS Q3', 'RS Q8', 'RS3', 'RS4', 'RS5', 'RS6', 'RS7', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'SQ5', 'SQ6 e-tron', 'SQ7', 'SQ8', 'SQ8 e-tron', 'TT', 'TTRS', 'TTS', 'V8'
-  ],
-  models: {}
-},
+
 'Bailey': {
   series: [
     'Alicanto Grande', 'Camping Trailer', 'Discovery', 'Pegasus', 'Phoenix', 'Unicorn'
@@ -68,12 +214,7 @@ const manufacturerData = {
   ],
   models: {}
 },
-'BMW': {
-  series: [
-    '1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', '8 Series', 'Gran Turismo (GT)', 'i Series', 'M Series', 'X Series', 'Z Series'
-  ],
-  models: {}
-},
+
 'Bugatti': {
   series: [
     'Chiron', 'Divo', 'EB110', 'Veyron 16.4'
@@ -122,20 +263,7 @@ const manufacturerData = {
   ],
   models: {}
 },
-'Chevrolet': {
-  series: [
-    'Astro Van', 'Avalanche', 'Blazer', 'Bolt', 'Camaro', 'Chevy Van', 'Cobalt', 'Colorado', 'Corvette', 'Cruze', 'Equinox', 'Express Van', 'HHR', 'Impala', 'K5 Blazer', 'Lumina', 'Malibu', 'Monte Carlo', 'S-10', 'Silverado', 'SS', 'SSR', 'Suburban', 'Tahoe', 'Tracker', 'Traverse', 'Trax', 'Uplander', 'Ventura'
-  ],
-  models: {}
-},
-'Chevrolet(Daewoo)': {
-  series: [
-    'Malibu', 'Cruze', 'Equinox', 'Traverse', 'Acadia', 'Alpheon', 'Aveo', 'Bolt', 'Brougham', 'Camaro', 'Cielo', 'Colorado', 'Corvette', 'Equinox', 'Damas', 'Espero', 'G2x', 'Gentra', 'Impala', 'Kalos', 'Labo', 'Lacetti', 'Lanos', 'Le Mans', 'Leganza', 'Magnus', 'Matiz', 'Nexia', 'Nubira', 'Orlando', 'Prince', 'Rezzo', 'Spark', 'Statesman', 'Super Long', 'Tahoe', 'Tico', 'Tosca', 'Trailblazer', 'Traverse', 'Trax', 'Veritas', 'Winsun', 'Cruze'
-  ],
-  models: {
-    'Malibu': ['Malibu LS', 'Malibu LT', 'Malibu Premier']
-  }
-},
+
 'Chrysler': {
   series: [
     '200', '300C', '300M', 'Caravan', 'Cirrus', 'Concorde', 'Crossfire', 'Eagle Talon', 'Grand Voyager', 'Intrepid', 'LeBaron', 'LHS', 'Neon', 'New Yorker', 'Pacifica', 'Prowler', 'PT Cruiser', 'Sebring', 'Stratus', 'Town & Country', 'Vision', 'Voyager'
@@ -322,81 +450,7 @@ const manufacturerData = {
   ],
   models: {}
 },
-'Hyundai': {
-  series: [
-    'Accent', 'Aero Bus', 'Aerocity', 'Aerotown', 'Aslan', 'Atos', 'Avante', 'BlueOn', 'Casper', 'Chorus', 'Click', 'County', 'Dynasty', 'Elantra', 'Elec City', 'Equus', 'Excell', 'Galloper', 'Genesis', 'Global 900', 'Grace', 'Grandeur', 'Green City', 'I30', 'I40', 'Ioniq', 'Ioniq5', 'Ioniq6', 'Ix35', 'Kona', 'La Vita', 'Large(Medium)Truck', 'Libero', 'Marcia', 'MaxCruz', 'Mega Truck', 'Mighty', 'New Power Truck', 'Nexo', 'Palisad', 'Pavise', 'Pony', 'Porter', 'Presto', 'Santa Cruz', 'Santafe', 'Santamo', 'Scoupe', 'Solati', 'Sonata', 'St1', 'Starex', 'Staria', 'Stella', 'Super(Medium)Truck', 'Terracan', 'Tiburon', 'Trago', 'Trajet Xg', 'Tucson', 'Tuscani', 'Unicity', 'Universe', 'Veloster', 'Venue', 'Veracruz', 'Verna'
-  ],
-  models: {
-    'Accent': ['Accent', 'New Accent'],
-    'Aero Bus': ['Aero Bus'],
-    'Aerocity': ['Aerocity', 'New Super Aero City', 'Super Aero City'],
-    'Aerotown': ['Aerotown', 'e-Aerotown'],
-    'Aslan': ['Aslan'],
-    'Atos': ['Atos'],
-    'Avante': ['All New Avante', 'Avante (CN7)', 'Avante AD', 'Avante Hybrid', 'Avante Hybrid (CN7)', 'Avante MD', 'Avante N', 'Avante XD', 'New Avante XD', 'The New Avante (CN7)', 'The New Avante AD', 'The New Avante Hybrid (CN)', 'The New Avante MD', 'The New Avante N'],
-    'BlueOn': ['BlueOn'],
-    'Casper': ['Casper Electric', 'Casper', 'The New Casper'],
-    'Chorus': ['Chorus'],
-    'Click': ['Click', 'New Click', 'Click Hybrid'],
-    'County': ['County', 'County Electric', 'County New Breeze', 'e-County', 'New County'],
-    'Dynasty': ['Dynasty', 'New Dynasty'],
-    'Elantra': ['Elantra'],
-    'Elec City': ['Elec City', 'Elec City Double Decker', 'Elec City FCEV', 'Elec City Town'],
-    'Equus': ['Equus', 'Equus (New)', 'New Equus'],
-    'Excell': ['Excell'],
-    'Galloper': ['Galloper'],
-    'Genesis': ['Genesis', 'Genesis Coupe', 'New Prada', 'Genesis DH'],
-    'Global 900': ['Global 900'],
-    'Grace': ['Grace', 'New Grace'],
-    'Grandeur': ['Grandeur', 'Grandeur HG Hybrid', 'Grandeur New Luxury', 'Grandeur IG', 'Grandeur HG', 'Grandeur IG Hybrid', 'Grandeur TG', 'Grandeur XG', 'New Grandeur', 'New Grandeur XG', 'The All New Grandeur', 'The All New Grandeur IG', 'The Luxury Grandeur', 'The New Grandeur IG Hybrid', 'The New Grandeur IG'],
-    'Green City': ['Green City'],
-    'I30': ['I30', 'New I30', 'i30 PD', 'i30cw', 'The New i30'],
-    'I40': ['I40', 'New I40'],
-    'Ioniq': ['Ioniq Plug-in', 'Ioniq Hybrid', 'Ioniq Electric', 'The New Ioniq Plug-in', 'The New Ioniq Hybrid', 'The New Ioniq Electric'],
-    'Ioniq5': ['Ioniq5', 'Ioniq 5 N', 'The New Ioniq5'],
-    'Ioniq6': ['Ioniq6'],
-    'Ioniq9': ['Ioniq9'],
-    'Ix35': ['Ix35', 'New Ix35'],
-    'Kona': ['Kona', 'Kona Electric', 'Kona Hybrid', 'The New Kona Hybrid', 'The All New Kona', 'The New Kona', 'The New Kona Electric', 'The All-New Kona Electric', 'The All New Kona Hybrid'],
-    'La Vita': ['La Vita'],
-    'Large(Medium)Truck': ['Large(Medium)Truck'],
-    'Libero': ['Libero'],
-    'Marcia': ['Marcia'],
-    'MaxCruz': ['MaxCruz', 'The New MaxCruz'],
-    'Mega Truck': ['Mega Truck'],
-    'Mighty': ['Mighty', 'All New Mighty', 'e-Mighty', 'Mighty II', 'The New Mighty'],
-    'New Power Truck': ['New Power Truck'],
-    'Nexo': ['Nexo'],
-    'Palisad': ['Palisad', 'The New Palisade', 'The All New Palisade', 'The All New Palisade Hybrid'],
-    'Pavise': ['Pavise', 'The New Pavise'],
-    'Pony': ['Pony', 'Pony II'],
-    'Porter': ['Porter', 'Porter II', 'Porter II Electric'],
-    'Presto': ['Presto'],
-    'Santa Cruz': ['Santa Cruz'],
-    'Santa Fe': ['Santa Fe', 'Santa Fe (CM)', 'Santa Fe (DM)', 'The New Santa Fe(TM)', 'Santa Fe The Prime', 'The All New Santa Fe', 'The All New Santa Fe Hybrid', 'The New Santa Fe', 'The New Santa Fe Hybrid'],
-    'Santamo': ['Santamo'],
-    'Scoupe': ['Scoupe'],
-    'Solati': ['Solati'],
-    'Sonata': ['EF Sonata', 'LF Sonata', 'LF Sonata Hybrid', 'LF Sonata New Rise', 'LF Sonata New Rise Hybrid', 'New EF Sonata', 'NF Sonata', 'NF Sonata Transform', 'Sonata', 'Sonata (DN8)', 'Sonata (DN8) Hybrid', 'Sonata II', 'Sonata III', 'Sonata The Brilliant', 'Sonata The Edge', 'Sonata The Edge Hybrid', 'YF Sonata', 'YF Sonata Hybrid'],
-    'St1': ['St1'],
-    'Starex': ['Starex', 'Grand Starex', 'New Starex Jumbo', 'New Starex', 'Starex Jumbo', 'The New Grand Starex'],
-    'Staria': ['Staria', 'Staria Hybrid'],
-    'Stella': ['Stella'],
-    'Super(Medium)Truck': ['Super(Medium)Truck'],
-    'Terracan': ['Terracan'],
-    'Tiburon': ['Tiburon', 'Tiburon Turbulence'],
-    'Trago': ['Trago', 'Trago Xcient', 'Trago Xcient Pro', 'Xcient FCEV'],
-    'Trajet Xg': ['Trajet Xg'],
-    'Tucson': ['Tucson', 'Tucson ix', 'Tucson ix FCEV', 'The New Tucson Hybrid', 'The All New Tucson Hybrid', 'The All New Tucson', 'New Tuckson', 'New Tucson ix', 'All New Tucson'],
-    'Tuscani': ['Tuscani', 'New Tuscani'],
-    'Unicity': ['Unicity'],
-    'Universe': ['Universe', 'Universe FCEV'],
-    'Veloster': ['Veloster', 'Veloster N', 'The New Veloster', 'Veloster (JS)'],
-    'Venue': ['Venue'],
-    'Veracruz': ['Veracruz'],
-    'Verna': ['Verna', 'New Verna', 'Verna Transform']
-  }
-},
+
 'INEOS': {
   series: ['Grenadier'],
   models: {}
@@ -429,14 +483,8 @@ const manufacturerData = {
   series: ['Bravo EV', 'VBUS110B', 'VBUS60', 'VBUS90', 'Viva EV', 'Zela EV'],
   models: {}
 },
-'KG Mobility (SsangYong)': {
-  series: ['Actyon', 'Chairman', 'Istana', 'Korando', 'Kyron', 'Musso', 'Rexton', 'Rodius', 'SY Truck', 'Tivoli', 'Torres'],
-  models: {}
-},
-'Kia': {
-  series: ['(Jumbo) Titan', 'Avella', 'Bongo', 'Capital', 'Carens', 'Carnival', 'Casta', 'Cerato', 'Ceres', 'Combi', 'Concorde', 'Copy Wide', 'Cosmos', 'Credos', 'Elan', 'Enterprise', 'EV3', 'EV4', 'EV6', 'EV9', 'Forte', 'Granbird', 'Granto', 'K3', 'K5', 'K7', 'K8', 'K9', 'Lotze', 'Mohave', 'Morning', 'Niro', 'Opirus', 'Optima', 'Parmax', 'Potentia', 'Pregio', 'Pride', 'Ray', 'Retona', 'Rhino', 'Rio', 'Rockstar', 'Seltos', 'Sephia', 'Shuma', 'Sorento', 'Soul', 'Spectra', 'Sportage', 'Stinger', 'Stonic', 'Tasman', 'Telluride', 'Towner', 'Trade', 'Vesta', 'Visto', 'X-Track'],
-  models: {}
-},
+
+
 'Koenigsegg': {
   series: ['Agera', 'CC8S', 'CCR', 'CCX', 'CCXR'],
   models: {}
@@ -485,10 +533,7 @@ const manufacturerData = {
   series: ['TX'],
   models: {}
 },
-'Lexus': {
-  series: ['CT', 'ES', 'GS', 'GX', 'HS', 'IS', 'LC', 'LFA', 'LM', 'LS', 'LX', 'NX', 'RC', 'RX', 'RZ', 'SC', 'UX'],
-  models: {}
-},
+
 'Lincoln': {
   series: ['Aviator', 'Continental', 'Corsair', 'LS', 'MKC', 'MKS', 'MKT', 'MKX', 'MKZ', 'Nautilus', 'Navigator', 'Town Car'],
   models: {}
@@ -521,14 +566,7 @@ const manufacturerData = {
   series: ['540C', '570GT', '570S', '600LT', '650S', '675LT', '720S', '750S', '765LT', 'Artura', 'GT', 'MP4-12C', 'Senna'],
   models: {}
 },
-'Mercedes-Benz': {
-  series: ['190', 'A-Class', 'AMG GT', 'B-Class', 'C-Class', 'CL-Class', 'CLA-Class', 'CLE', 'CLK-Class', 'CLS-Class', 'E-Class', 'EQA', 'EQB', 'EQC', 'EQE', 'EQS', 'G-Class', 'GL-Class', 'GLA-Class', 'GLB-Class', 'GLC-Class', 'GLE-Class', 'GLK-Class', 'GLS-Class', 'M-Class', 'Mattress', 'Maybach', 'R-Class', 'S-Class', 'SE', 'SEC', 'SL-Class', 'SLC-Class', 'SLK-Class', 'SLR', 'SLS AMG', 'Sprinter', 'V-Class', 'Viano'],
-  models: {}
-},
-'Mercedes-Benz Commercial': {
-  series: ['Medium Large Truck'],
-  models: {}
-},
+
 'Mercury': {
   series: ['Cougar', 'Grand Marquis', 'Milan', 'Montego', 'Mountaineer', 'Mystique', 'Sable', 'Villager'],
   models: {}
@@ -597,10 +635,7 @@ const manufacturerData = {
   series: ['Clio', 'Espace', 'Koleos', 'Laguna', 'Megane', 'Modus', 'Safrane', 'Scenic', 'Talisman', 'Twingo', 'Vel Satis'],
   models: {}
 },
-'Renault Samsung': {
-  series: ['Arkana', 'Captur', 'Clio', 'Grand Koleos', 'Master', 'QM3', 'QM5', 'QM6', 'SM3', 'SM3 Z.E', 'SM5', 'SM6', 'SM7', 'Truck', 'Twizy', 'XM3', 'ZOE'],
-  models: {}
-},
+
 'Rivian': {
   series: ['R1T'],
   models: {}
@@ -681,23 +716,12 @@ const manufacturerData = {
   series: ['Cybertruck', 'Model 3', 'Model S', 'Model X', 'Model Y'],
   models: {}
 },
-'Toyota': {
-  series: ['4Runner', '86', 'Allion', 'Alphard', 'Altezza', 'Aqua', 'Aristo', 'Auris', 'Avalon', 'Avensis', 'Aygo', 'bB', 'Blade', 'C-HR', 'Camry', 'Carina ED', 'Celica', 'Celsior', 'Century', 'Chaser', 'Corolla', 'Corolla Spacio', 'Corona', 'Cresta', 'Crown', 'Esquire', 'Estima', 'FJ Cruiser', 'Forte', 'Fortuner', 'GAIA', 'GR86', 'Harrier', 'Hiace', 'Highlander', 'Hilux Surf', 'Ipsum', 'IQ', 'Isis', 'ist', 'Land Cruiser', 'Land Cruiser Prado', 'Mark II', 'Mark X', 'Matrix', 'MR-2', 'MR-S', 'Noah', 'Paseo', 'Passo', 'Premio', 'Previa', 'Prius', 'Progress', 'Ractis', 'Raum', 'RAV4', 'Roomy', 'Rush', 'Sai', 'Sequoia', 'Sera', 'Sienna', 'Sienta', 'Soarer', 'Solara', 'Sprinter Trueno', 'Supra', 'Tacoma', 'Tundra', 'Vanguard', 'Vellfire', 'Venza', 'Verso', 'Vios', 'Vista', 'Vitz (Yaris)', 'Voxy', 'Will', 'Windom', 'Wish'],
-  models: {
-    'Camry': ['Camry LE', 'Camry SE', 'Camry XLE'],
-    'Corolla': ['Corolla LE', 'Corolla SE', 'Corolla XSE'],
-    'RAV4': ['RAV4 LE', 'RAV4 XLE', 'RAV4 Limited'],
-    'Highlander': ['Highlander LE', 'Highlander XLE', 'Highlander Limited']
-  }
-},
+
 'Visner': {
   series: ['Avesso Harmonyline', 'Camping Trailer', 'Premio Plus'],
   models: {}
 },
-'Volkswagen': {
-  series: ['Arteon', 'Atlas', 'Beetle', 'Bora', 'Caddy', 'CC', 'Corrado', 'Eos', 'Golf', 'Grand California', 'ID.4', 'ID.5', 'Jetta', 'Lupo', 'Microbus', 'Passat', 'Phaeton', 'Polo', 'Routan', 'Scirocco', 'Sharan', 'T-Roc', 'Taos', 'Tiguan', 'Touareg', 'Touran', 'Transporter', 'up!', 'Vento'],
-  models: {}
-},
+
 'Volvo': {
   series: ['240', '740', '760', '850', '940', '960', 'C30', 'C40', 'C70', 'EX30', 'S40', 'S60', 'S70', 'S80', 'S90', 'V40', 'V50', 'V60', 'V70', 'V90', 'XC40', 'XC60', 'XC70', 'XC90'],
   models: {}

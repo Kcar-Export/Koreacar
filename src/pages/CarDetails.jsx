@@ -208,13 +208,19 @@ console.log('Found car:', car);
           <span className="text-xl md:text-2xl font-bold mb-2 md:mb-0">
             {(data.title ? data.title.replace(/&nbsp;/g, '') : data.model)}
           </span>
-          <div className="flex items-center">
-            <div id="carprice" className="text-2xl md:text-3xl text-red-800 font-bold mr-1">
-              {moneyFormatter(data.price)}
-            </div>
-            <div className="text-base md:text-lg font-bold mt-1">won</div>
-          </div>
-        </div>
+<div className="text-red-800 font-bold text-xl md:text-2xl">
+  <span className="text-blue-700 font-medium">
+    {`$${(data.price / 1400).toLocaleString(undefined, {
+      maximumFractionDigits: 0,
+    })} USD`}
+  </span>
+  <span className="mx-1 text-gray-500">/</span>
+  <span>
+    {`${Math.floor(data.price / 10000).toLocaleString()} 만원`}
+  </span>
+</div>
+
+</div>
 
         {/* Image Gallery */}
         <div className="topleft bg-white p-4 mb-5 rounded-lg shadow">
@@ -356,16 +362,19 @@ console.log('Found car:', car);
           </div>
         </div>
 
-        {/* Performance Log Button */}
-        <div className="bg-white p-4 mb-5 rounded-lg shadow text-center">
-          <button 
-            className="border-2 border-black px-4 py-2 md:px-6 md:py-2 font-bold hover:bg-gray-100 transition-colors text-sm md:text-base"
-            onClick={() => window.open("#", "smspopup", "width=1000,height=800,scrollbars=yes,resizable=no")}
-          >
-            View Performance Log
-          </button>
-        </div>
-
+{/* Performance Log Button */}
+<div className="bg-white p-4 mb-5 rounded-lg shadow text-center">
+  <button 
+    className="border-2 border-black px-4 py-2 md:px-6 md:py-2 font-bold hover:bg-gray-100 transition-colors text-sm md:text-base"
+    onClick={() => {
+      const seq = String(data.seq); // Just use as-is
+      const inspectionUrl = `https://photo5.autosale.co.kr/safe.php?seq=${seq}&t=kimko`;
+      window.open(inspectionUrl, "smspopup", "width=1000,height=800,scrollbars=yes,resizable=no");
+    }}
+  >
+    View Performance Log
+  </button>
+</div>
         {/* Options Table - Responsive */}
         <div className="bg-white p-4 mb-5 rounded-lg shadow">
           <div className="text-xl font-bold mb-3">Vehicle Options</div>
